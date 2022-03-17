@@ -49,6 +49,9 @@ export default (stat) => {
                 },
               },
             },
+            onHover: (evt, elems) => {
+              evt.native.target.style.cursor = elems[0] ? 'pointer' : 'default';
+            },
             onClick: (evt, elems) => {
               let country_name = '';
               // we assume only one country in elems
