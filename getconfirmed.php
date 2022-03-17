@@ -17,10 +17,12 @@
     
     $jsondata = json_encode($stat);
 ?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
-    <title>test</title>
+    <title>COVID-19</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,17 +36,35 @@
             width: 100vw;
             height: 100vh;
         }
+        .container {
+            width: 100%;
+        }
+        #world_data{
+            background-color: lightgrey;
+            width: 100%;
+            height: 700px;
+
+        }
     </style>
 
   </head>
   <body>
-        <canvas id="myChart"></canvas>
+      <div class="container">
+          <div class="row">
+          <h1 class="text-center">2020年01/22至/03/14新冠肺炎數據</h1>
+            <canvas id="myChart"></canvas>
+            
+            <div id="world_data" class="mt-5">
+                <!-- 寫好版型，預先invisible ，資料放好改visible -->
+            </div>
+
+          </div>
+      </div>
+      
 
         <script>
             let stat = <?php echo $jsondata ?>;
-            // stat = {
-            //     'Taiwan': 3
-            // }
+
 
             function get_confirmed_by_contries(name) {
                 return name in stat ? stat[name] : 0;
@@ -58,7 +78,7 @@
                 data: {
                     labels: countries.map((d) => d.properties.name),
                     datasets: [{
-                        label: 'Countries',
+                        label: 'COVID-19全球確診人口數',
                         data: countries.map((d) => ({feature: d, value: get_confirmed_by_contries(d.properties.name)})),
                     }]
                 },
@@ -67,18 +87,38 @@
                     showGraticule: true,
                     plugins: {
                         legend: {
-                        display: false
+                            display: true
                         },
                     },
                     scales: {
                         xy: {
-                        projection: 'equalEarth'
-                        }
-                    }
-                }
+                            projection: 'equalEarth'
+                        },
+                        color: {
+                            type: 'colorLogarithmic',
+                            interpolate:'YlOrRd',
+                            quantize: 50,
+                            legend: {
+                                position: 'bottom-right',
+                                align: 'right',
+                            },
+                        },
+                    },
+                    onClick: (evt, elems) => {
+                        
+                        // we assume only one country in elems
+                        let country_name = elems[0].element.feature.properties.name;
+                        
+                        // in-place
+                        let world_data = document.getElementById('world_data');
+                        world_data.innerHTML = '<div> Replace to ' + country_name + '</div>';
+                    },
+                    
+                },
             });
         });
         </script>
+       
     </body>
 
       
