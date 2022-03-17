@@ -32,7 +32,11 @@ export default (stat) => {
             showGraticule: true,
             plugins: {
               legend: {
+                display: false,
+              },
+              title: {
                 display: true,
+                text: 'COVID-19全球確診人口數',
               },
             },
             scales: {
@@ -58,9 +62,11 @@ export default (stat) => {
               if (elems[0]) {
                 country_name = elems[0].element.feature.properties.name;
                 // in-place
-                let world_data = document.getElementById('country-data');
-                world_data.innerHTML =
-                  '<div> Replace to ' + country_name + '</div>';
+                let countryData = document.getElementById('country-data');
+                let worldData = document.getElementById('global-data');
+                countryData.firstElementChild.innerHTML = `Replace to ${country_name}`;
+                countryData.style.display = 'block';
+                worldData.style.display = 'none';
               }
             },
           },

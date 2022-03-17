@@ -89,6 +89,7 @@ export const drawGlobalDaily = (jsonData, caseType) => {
         },
       },
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: 'right',

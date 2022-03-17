@@ -49,6 +49,7 @@
             background-color: lightgrey;
             width: 100%;
             height: 700px;
+            display: none;
 
         }
     </style>
@@ -63,8 +64,11 @@
         <div class="row world-map">
             <canvas id="myChart"></canvas>
         </div>
-        <div class="row details">
-            <div id="country-data" class="mt-5"></div>
+        <div class="row mt-2 details">
+            <div id="country-data" class="mt-5">
+                <div></div>
+                <button id="back-to-global">Back To Global View</button>
+            </div>
             <div id="global-data">
             <div class="row mx-3 my-5 Confirmed">
                 <div class="col-md-5">
@@ -113,6 +117,15 @@
         drawGlobalNumber(<?= $global_number_results; ?>,'Recovered');
         drawGlobalTop5(<?= $global_top5_recovered_results; ?>,'Recovered');
         drawGlobalDaily(<?= $global_daily_recovered_results; ?>,'Recovered');
+
+        //back to global button
+        const btn = document.getElementById('back-to-global');
+        btn.addEventListener('click',()=>{
+            let countryData = document.getElementById('country-data');
+            let worldData = document.getElementById('global-data');
+            countryData.style.display='none';
+            worldData.style.display='block';
+        })
     </script>
 
 </body>
