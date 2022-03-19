@@ -3,7 +3,7 @@
    {
       function __construct()
       {
-         $this->open('covid-19.db');
+         $this->open('./data/covid-19.db');
       }
    }
 
