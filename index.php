@@ -19,14 +19,6 @@
     <script src="https://unpkg.com/chart.js@3.7.0/dist/chart.js"></script>
     <script src="https://unpkg.com/chartjs-chart-geo@3.7.1/build/index.umd.min.js"></script>
     <style>
-        /* body {
-            width: 100vw;
-            height: 100vh;
-        } */
-
-        /* .container {
-            width: 100%;
-        } */
         ol, ul {
 	        list-style: none;
         }
@@ -46,11 +38,7 @@
         }
 
         #country-data {
-            background-color: lightgrey;
-            width: 100%;
-            height: 700px;
             display: none;
-
         }
     </style>
 
@@ -58,16 +46,19 @@
 
 <body>
     <div class="container-fluid">
-        <h1 class="text-center">2020年01/22至/03/14新冠肺炎數據</h1>
+        <h1 class="text-center">2020年01/22至03/14新冠肺炎數據</h1>
     </div>
     <div class="container-lg">
         <div class="row world-map">
             <canvas id="myChart"></canvas>
         </div>
-        <div class="row mt-2 details">
+        <div class="row pt-5 details">
             <div id="country-data" class="mt-5">
-                <div></div>
-                <button id="back-to-global">Back To Global View</button>
+                <div class="row px-4 justify-content-between">
+                    <h4 class="col-4"></h4>
+                    <button class="btn btn-primary col-3" id="back-to-global">回到全球圖表</button>    
+                </div>
+                <canvas id="country-daily" ></canvas>
             </div>
             <div id="global-data">
             <div class="row mx-3 my-5 Confirmed">
@@ -97,11 +88,29 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
     <script type="module">
-        import drawWorldMap from './js/worldMap.js';
+        import {drawWorldMap} from './js/worldMap.js';
         import {drawGlobalNumber, drawGlobalTop5, drawGlobalDaily} from './js/globalChart.js';
+        import {drawCountryDaily} from './js/countryChart.js';
+
+        let countryData = document.getElementById('country-data');
+        let worldData = document.getElementById('global-data');
 
         //全球地圖
-        drawWorldMap(<?= $world_map_results ?>);
+        const clickCountryEventName = 'clickCountry';
+        let countryDailyChart=new Chart();
+        document.addEventListener(clickCountryEventName,async(event)=>{
+            const country_daily_results = await fetch(`./php/country-chart.php?country=${event.detail.countryName}`).then(response=>response.json());
+            countryDailyChart.destroy();
+            if(country_daily_results.length>0){
+                countryDailyChart = drawCountryDaily(country_daily_results);
+            }
+            countryData.getElementsByTagName('h4')[0].innerHTML = event.detail.countryName;
+            countryData.style.display = 'block';
+            worldData.style.display = 'none';
+        })
+        drawWorldMap(<?= $world_map_results ?>, clickCountryEventName);
+        
+        
 
         //全球確診
         drawGlobalNumber(<?= $global_number_results; ?>,'Confirmed');
@@ -121,8 +130,6 @@
         //back to global button
         const btn = document.getElementById('back-to-global');
         btn.addEventListener('click',()=>{
-            let countryData = document.getElementById('country-data');
-            let worldData = document.getElementById('global-data');
             countryData.style.display='none';
             worldData.style.display='block';
         })
