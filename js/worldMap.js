@@ -1,4 +1,4 @@
-export default (stat) => {
+export const drawWorldMap = (stat, clickCountryEventName) => {
   function get_confirmed_by_contries(name) {
     return name in stat ? stat[name] : 0;
   }
@@ -57,16 +57,12 @@ export default (stat) => {
               evt.native.target.style.cursor = elems[0] ? 'pointer' : 'default';
             },
             onClick: (evt, elems) => {
-              let country_name = '';
-              // we assume only one country in elems
               if (elems[0]) {
-                country_name = elems[0].element.feature.properties.name;
-                // in-place
-                let countryData = document.getElementById('country-data');
-                let worldData = document.getElementById('global-data');
-                countryData.firstElementChild.innerHTML = `Replace to ${country_name}`;
-                countryData.style.display = 'block';
-                worldData.style.display = 'none';
+                let countryName = elems[0].element.feature.properties.name;
+                const clickCountry = new CustomEvent(clickCountryEventName, {
+                  detail: { countryName },
+                });
+                document.dispatchEvent(clickCountry);
               }
             },
           },
