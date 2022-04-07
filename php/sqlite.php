@@ -3,7 +3,7 @@
    {
       function __construct()
       {
-         $this->open('./data/covid-19.db');
+         $this->open(__DIR__.'/../data/covid-19.db');
       }
    }
 
