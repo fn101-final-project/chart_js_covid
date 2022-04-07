@@ -18,5 +18,4 @@ while ($row = $result->fetchArray()) {
 
     
 $world_map_results = json_encode($stat);
-
-?>
+echo $world_map_results;

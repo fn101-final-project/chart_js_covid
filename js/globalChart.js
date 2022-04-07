@@ -9,8 +9,6 @@ export const drawGlobalNumber = (jsonData, caseType) => {
   caseDiv[0].insertBefore(globalNumberDiv, caseDiv[0].firstChild);
 };
 
-//////////////////////////////////////////////////////////////
-
 const colorMap = {
   '#FD6405': '',
   '#4C7835': '',
@@ -59,12 +57,7 @@ export const drawGlobalTop5 = (jsonData, caseType) => {
   caseDiv[0].insertBefore(globalTop5Div, caseDiv[0].firstChild.nextSibling);
 };
 
-//////////////////////////////////////////////////////////////
-
-export const drawGlobalDaily = (jsonData, caseType) => {
-  const ctx = document
-    .getElementById(`global-daily-${caseType}`)
-    .getContext('2d');
+export const drawGlobalDaily = (jsonData, caseType, ctx) => {
   const labels = jsonData.map((el) => el.Date);
   const data = {
     labels: labels,
