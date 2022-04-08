@@ -12,14 +12,14 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
-        ol,
+        /* ol,
         ul {
             list-style: none;
         }
 
         li {
             padding: 20px;
-        }
+        } */
 
         h2 {
             font-size: 2.5rem;
@@ -30,9 +30,9 @@
             border-radius: 0px;
         }
 
-        .text-bottom {
+        /* .text-bottom {
             align-self: flex-end;
-        }
+        } */
 
         .hidden {
             max-height: 0px;
@@ -54,36 +54,42 @@
         <div class="row world-map">
             <canvas id="myChart"></canvas>
         </div>
-        <div class="row py-5 details">
+        <div class="row pb-5 details">
             <div id="country-data" class="mt-4 hidden">
                 <div class="row p-4 justify-content-between">
                     <h4 class="col-4"></h4>
-                    <button class="btn btn-primary col-md-3 col-4" id="back-to-global">回到全球圖表</button>
+                    <button class="btn btn-primary col-md-3 col-5" id="back-to-global">回到全球圖表</button>
                 </div>
-                <canvas class="row" id="country-daily" height="100"></canvas>
+                <div style="position: relative; height:18em">
+                    <canvas class="row" id="country-daily"></canvas>
+                </div>
                 <div class="row pt-4 gy-5">
                     <div class="col-sm-7">
                         <div id="country-total" class="text-center"></div>
-                        <canvas id="province-confirmed-top5" height="100"></canvas>
+                        <div style="position: relative; height:12em">
+                            <canvas id="province-confirmed-top5"></canvas>
+                        </div>
                     </div>
                     <div class="col-sm-5">
-                        <canvas id="province-confirmed" height="50"></canvas>
+                        <div style="position: relative; height:20em">
+                            <canvas id="province-confirmed"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
             <div id="global-data">
                 <div class="row mx-3 my-5 Confirmed">
-                    <div class="col-md-5">
+                    <div class="col-md-5" style="position: relative; height:15em">
                         <canvas id="global-daily-confirmed"></canvas>
                     </div>
                 </div>
                 <div class="row mx-3 my-5 Deaths">
-                    <div class="col-md-5">
+                    <div class="col-md-5" style="position: relative; height:15em">
                         <canvas id="global-daily-deaths"></canvas>
                     </div>
                 </div>
                 <div class="row mx-3 my-5 Recovered">
-                    <div class="col-md-5">
+                    <div class="col-md-5" style="position: relative; height:15em">
                         <canvas id="global-daily-recovered"></canvas>
                     </div>
                 </div>
