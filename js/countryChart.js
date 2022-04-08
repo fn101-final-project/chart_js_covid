@@ -36,6 +36,7 @@ export const drawCountryDaily = (jsonData, ctx) => {
     data: data,
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       interaction: {
         mode: 'index',
         intersect: false,
@@ -112,6 +113,7 @@ export const drawProvinceConfirmed = (jsonData, ctx) => {
     plugins: [ChartDataLabels],
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: 'top',
@@ -176,7 +178,7 @@ export const drawProvinceConfirmedTop5 = (dataPoints, ctx) => {
         },
       },
       responsive: true,
-
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           display: false,
